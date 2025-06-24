@@ -1,0 +1,76 @@
+/* 전체 뷰포트 중앙 정렬 */
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 24px;
+}
+
+/* 내부 컨테이너 */
+.error-container {
+  width: 50vw;
+  max-width: 720px;
+  min-width: 320px;
+  min-height: 45vh;
+  background: #fff;
+  padding: 48px 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 텍스트 */
+.error-code {
+  font-size: 6rem;
+  font-weight: 700;
+  color: #dc3545;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+.error-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 18px;
+}
+.error-description {
+  color: #666;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+/* 버튼 영역 */
+.error-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.home-button,
+.refresh-button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.home-button {
+  background-color: #007bff;
+  color: #fff;
+}
+.home-button:hover {
+  background-color: #0056b3;
+}
+.refresh-button {
+  background-color: #6c757d;
+  color: #fff;
+}
+.refresh-button:hover {
+  background-color: #545b62;
+}
