@@ -18,17 +18,17 @@ React·Redux 기반의 **범용 에러 탐지·안내 솔루션**입니다.
 ---
 
 ## 기능 개요  
-- **전역 모달(ErrorModal)** : 모든 오류 메시지를 XSS 무력화 후 모달로 출력[1][2].  
-- **에러 코드별 페이지(ErrorPage)** : 4xx·5xx 상태를 사람 친화적인 문구로 매핑[3][4].  
-- **React ErrorBoundary** : 렌더 단계 예외를 잡아 홈으로 복귀 옵션 제공[5].  
-- **Redux 오류 스토어** : 네트워크·인증·입력 등 범주별 상태 관리[6].  
-- **전용 훅(useErrorHooks)** : `show / clear` 메서드로 간결한 디스패치[7].  
-- **Axios 인터셉터** : CSRF 헤더 삽입 + 5xx·429·408 고정 딜레이 재시도[8].  
-- **Parallel 요청 유틸(requestAllSettled)** : 개별 실패도 모달로 통합[9].  
-- **SafeWebSocket / SafeWorker** : 실시간·백그라운드 오류도 동일 파이프라인으로 전달[10][11].  
-- **Global Listener** : `window.onerror`, `unhandledrejection`까지 수집[12].  
-- **민감 정보 필터링** : 토큰·ID 마스킹 후 DOMPurify로 Sanitizing[2].  
-- **경량 UI** : 반응형 CSS + `.input-warning` 클래스(아래 참조) 포함[13][14].
+- **전역 모달(ErrorModal)** : 모든 오류 메시지를 XSS 무력화 후 모달로 출력.  
+- **에러 코드별 페이지(ErrorPage)** : 4xx·5xx 상태를 사람 친화적인 문구로 매핑.  
+- **React ErrorBoundary** : 렌더 단계 예외를 잡아 홈으로 복귀 옵션 제공.  
+- **Redux 오류 스토어** : 네트워크·인증·입력 등 범주별 상태 관리.  
+- **전용 훅(useErrorHooks)** : `show / clear` 메서드로 간결한 디스패치.  
+- **Axios 인터셉터** : CSRF 헤더 삽입 + 5xx·429·408 고정 딜레이 재시도.  
+- **Parallel 요청 유틸(requestAllSettled)** : 개별 실패도 모달로 통합.  
+- **SafeWebSocket / SafeWorker** : 실시간·백그라운드 오류도 동일 파이프라인으로 전달.  
+- **Global Listener** : `window.onerror`, `unhandledrejection`까지 수집.  
+- **민감 정보 필터링** : 토큰·ID 마스킹 후 DOMPurify로 Sanitizing.  
+- **경량 UI** : 반응형 CSS + `.input-warning` 클래스(아래 참조) 포함.
 
 ---
 
@@ -53,7 +53,6 @@ npm install
 npm start
 ```
 > 현재 npm 배포 전 단계입니다.  
-> 패키지로 사용하려면 `packages/` 분리 후 `npm publish` 예정.
 
 ---
 
@@ -78,7 +77,7 @@ root.render(
 ```js
 import axios from './api/interceptor';   // 기존 axios 대신
 ```
-인터셉터가 자동으로 CSRF 토큰을 첨부하고, 3회(333 ms 간격) 재시도 후 모달을 띄웁니다[8].
+인터셉터가 자동으로 CSRF 토큰을 첨부하고, 3회(333 ms 간격) 재시도 후 모달을 띄웁니다.
 
 ### 3. 훅 사용 예
 ```jsx
@@ -113,13 +112,13 @@ function Login() {
   margin-top: 4px;
 }
 ```
-`` 컴포넌트는 `message`가 없으면 렌더를 생략합니다[15].
+`` 컴포넌트는 `message`가 없으면 렌더를 생략합니다.
 
 ---
 
 ## 상세 API
 
-### Redux Slice: `errorSlice`[6]
+### Redux Slice: `errorSlice`
 | 상태 필드 | 용도 |
 |-----------|------|
 | `pageErrorCode` | 404‧500 등 페이지 전환용 코드 |
@@ -127,27 +126,27 @@ function Login() {
 | `inputErrors` | `{ [field]: msg }` map |
 | `modal` | `{ isOpen, title, message, onConfirm, onCancel }` |
 
-> 모든 액션은 `clearErrors(['key1','key2'])`로 부분 초기화 가능[6].
+> 모든 액션은 `clearErrors(['key1','key2'])`로 부분 초기화 가능.
 
-### 훅 모음: `useErrorHooks`[7]
+### 훅 모음: `useErrorHooks`
 ```ts
 const { message, show, clear } = useNetworkError();
 const { show: setPageCode } = usePageError();
 ```
-`useInputError(field)`는 200 ms 디바운스로 대량 입력 시 성능을 확보합니다[7].
+`useInputError(field)`는 200 ms 디바운스로 대량 입력 시 성능을 확보합니다.
 
 ### 컴포넌트
 | 이름 | 설명 |
 |------|------|
-| `ErrorModal` | React-Modal 래퍼, 버튼 2개(확인/취소)[1]. |
-| `ErrorPage`  | `/error/:code` 경로에서 사용, `HTTP_ERROR_CODES` 매핑[3][4]. |
-| `ErrorBoundary` | 렌더 예외 → 모달 후 홈으로 이동[5]. |
-| `InputWarning`  | 필드 하단 작은 붉은 경고[15]. |
+| `ErrorModal` | React-Modal 래퍼, 버튼 2개(확인/취소) |
+| `ErrorPage`  | `/error/:code` 경로에서 사용, `HTTP_ERROR_CODES` 매핑. |
+| `ErrorBoundary` | 렌더 예외 → 모달 후 홈으로 이동. |
+| `InputWarning`  | 필드 하단 작은 붉은 경고. |
 
 ### 유틸리티
-- **filterProcess(raw)** : 민감정보 마스킹 → DOMPurify[2].  
-- **requestHistory** : 마지막 GET 요청 url을 세션에 기록/복원[16].  
-- **requestAllSettled** : `Promise.allSettled` 결과 중 실패만 모달[9].
+- **filterProcess(raw)** : 민감정보 마스킹 → DOMPurify.  
+- **requestHistory** : 마지막 GET 요청 url을 세션에 기록/복원.  
+- **requestAllSettled** : `Promise.allSettled` 결과 중 실패만 모달.
 
 ---
 
@@ -155,11 +154,11 @@ const { show: setPageCode } = usePageError();
 
 | 항목 | 방법 |
 |------|------|
-| HTTP 상태 메시지 | `components/errorCode.js` 수정 또는 추가[4]. |
-| 모달 테마 | `css/ErrorModal.css` 변수 및 색상 재정의[13]. |
-| 재시도 정책 | `api/interceptor.js` 의 `MAX_RETRIES`, `FIXED_DELAY_MS` 변경[8]. |
-| 민감정보 패턴 | `utils/filterProcess.js` 의 RegExp 확장[2]. |
-| WebSocket/Worker 예외 제목 | `SafeWebSocket`, `createSafeWorker` 내부 문자열 조정[10][11]. |
+| HTTP 상태 메시지 | `components/errorCode.js` 수정 또는 추가 |
+| 모달 테마 | `css/ErrorModal.css` 변수 및 색상 재정의. |
+| 재시도 정책 | `api/interceptor.js` 의 `MAX_RETRIES`, `FIXED_DELAY_MS` 변경 |
+| 민감정보 패턴 | `utils/filterProcess.js` 의 RegExp 확장 |
+| WebSocket/Worker 예외 제목 | `SafeWebSocket`, `createSafeWorker` 내부 문자열 조정 |
 
 ---
 
