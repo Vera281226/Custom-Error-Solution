@@ -60,16 +60,23 @@ npm start
 
 ### 1. 스토어 & ErrorBoundary 래핑
 ```jsx
+// index.js 또는 main entry point
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import App from './App';
+
+// root element는 보통 public/index.html의 <div id="root"></div>와 연결됩니다.
+const root = createRoot(document.getElementById('root'));
 
 root.render(
-  
-    
-      
-    
-  
+  <Provider store={store}>
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  </Provider>
 );
 ```
 
