@@ -169,13 +169,5 @@ const { show: setPageCode } = usePageError();
 
 ---
 
-## 로드맵
-- [ ] npm 패키지화 & TS 타입 배포  
-- [ ] i18n 다국어 번역 테이블  
-- [ ] Sentry·Rollbar 연동 어댑터  
-- [ ] React-Native 지원 검증  
-
----
-
 ## 라이선스
 MIT License. 자세한 내용은 `LICENSE` 파일을 확인하세요.
